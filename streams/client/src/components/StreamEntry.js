@@ -1,30 +1,33 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const StreamEntry = ({ stream, correctUser }) => {
     return (
         <div className="item">
-            {renderAdmin(correctUser)}
+            {renderAdmin(correctUser, stream.id)}
             <i className="large middle aligned icon camera" />
             <div className="content">
-                {stream.title}
+                <Link to={`/streams/show/${stream.id}`} className="header">
+                    {stream.title}
+                </Link>
                 <div className="description">
                     {stream.description}        
                 </div>
-            </div>
+            </div> 
         </div>
     );
 }
 
-const renderAdmin = (correctUser) => {
+const renderAdmin = (correctUser, streamId) => {
     if (correctUser) {
         return (
             <div className="right floated content">
-                <button className="ui button primary">
+                <Link to={`/streams/edit/${streamId}`} className="ui button primary">
                     Edit
-                </button>
-                <button className="ui button negative">
+                </Link>
+                <Link to={`/streams/delete/${streamId}`} className="ui button negative">
                     Delete
-                </button>
+                </Link>
             </div>
         );
     }
